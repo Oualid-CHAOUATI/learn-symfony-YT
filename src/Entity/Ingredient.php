@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\IngredientRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: IngredientRepository::class)]
 class Ingredient
@@ -14,9 +15,16 @@ class Ingredient
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min: 1, max: 50)]
+    #[Assert\NotNull()]
+    #[Assert\NotBlank()]
+    #[Assert\Unique()]
     private ?string $name = null;
 
     #[ORM\Column]
+    #[Assert\Positive(min: 1)]
+    #[Assert\NotNull()]
+    #[Assert\LessThanOrEqual(200)]
     private ?float $pri = null;
 
     #[ORM\Column]
